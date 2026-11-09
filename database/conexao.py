@@ -12,20 +12,27 @@ def get_connection():
     return conn
 
 
+def _banco_vazio(conn):
+    return (conn.execute("SELECT COUNT(*) FROM livros").fetchone()[0] == 0
+            and conn.execute("SELECT COUNT(*) FROM usuarios").fetchone()[0] == 0)
+
+
 def init_db():
-    """Cria o banco a partir do schema.sql e popula com seed.sql (só na 1ª vez)."""
-    novo = not os.path.exists(config.DB_PATH)
+    """Cria as tabelas (schema.sql) e, se o banco estiver vazio, insere os dados iniciais.
+    Pode ser chamada quantas vezes quiser: não duplica dados. Se algo falhar no meio,
+    o arquivo .db é apagado para não ficar um banco pela metade."""
+    os.makedirs(os.path.dirname(config.DB_PATH), exist_ok=True)
     conn = get_connection()
-    with open(config.SCHEMA_PATH, encoding="utf-8") as f:
-        conn.executescript(f.read())
-    if novo:
+    try:
+        with open(config.SCHEMA_PATH, encoding="utf-8") as f:
+            conn.executescript(f.read())
+        if not _banco_vazio(conn):
+            return
         with open(config.SEED_PATH, encoding="utf-8") as f:
             conn.executescript(f.read())
         usuarios = [
             ("Administrador", "admin@biblioteca.com", generate_password_hash("admin123"), "admin"),
             ("Leitor Demo", "leitor@biblioteca.com", generate_password_hash("leitor123"), "leitor"),
-        ]
-        usuarios += [
             ("Ana Souza", "ana@biblioteca.com", generate_password_hash("demo123"), "leitor"),
             ("Bruno Lima", "bruno@biblioteca.com", generate_password_hash("demo123"), "leitor"),
             ("Carla Dias", "carla@biblioteca.com", generate_password_hash("demo123"), "leitor"),
@@ -39,4 +46,13 @@ def init_db():
             (SELECT COUNT(*) FROM emprestimos e WHERE e.id_livro = livros.id_livro
              AND e.status IN ('ativo','atrasado'))""")
         conn.commit()
-    conn.close()
+    except Exception:
+        conn.close()
+        if os.path.exists(config.DB_PATH):
+            os.remove(config.DB_PATH)
+        raise
+    finally:
+        try:
+            conn.close()
+        except Exception:
+            pass

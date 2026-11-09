@@ -7,6 +7,8 @@ from routes.emprestimos import bp as emprestimos_bp
 from routes.estante import bp as estante_bp
 from routes.administracao import bp as admin_bp
 
+init_db()  # garante o banco em qualquer forma de execução (python app.py, flask run, gunicorn)
+
 app = Flask(__name__)
 app.secret_key = config.SECRET_KEY
 app.register_blueprint(livros_bp)
@@ -22,5 +24,4 @@ def index():
 
 
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
