@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Biblioteca Lírio — Biblioteca Virtual</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+<header class="topo">
+  <a class="logo" href="#home" onclick="mostrarView('home')"><span class="logo-ico">🌸</span><span>Biblioteca <b>Lírio</b></span></a>
+  <button class="menu-btn" id="menu-btn" aria-label="Abrir menu">☰</button>
+  <nav id="nav"></nav>
+</header>
+
+<div id="toast" class="toast" hidden></div>
+
+<main>
+<!-- ================= INÍCIO ================= -->
+<section class="view" id="view-home">
+  <div class="hero">
+    <div class="hero-texto">
+      <p class="eyebrow">Bem-vindo(a) à Biblioteca Lírio</p>
+      <h1>Cada página, um novo jardim para a imaginação.</h1>
+      <p>Explore o acervo, empreste seus livros favoritos, monte sua estante e acompanhe suas metas de leitura.</p>
+      <form class="busca-hero" onsubmit="event.preventDefault(); irParaCatalogo(document.getElementById('hero-busca').value)">
+        <input id="hero-busca" type="search" placeholder="Busque por título, autor ou gênero...">
+        <button type="submit">Buscar</button>
+      </form>
+    </div>
+    <div class="hero-dia" id="livro-dia"></div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <h2 class="secao">Categorias literárias</h2>
+  <div class="chips" id="categorias"></div>
+
+  <div class="secao-topo"><h2 class="secao">Livros em destaque</h2><a href="#catalogo" onclick="irParaCatalogo('', '', 'avaliacao')">ver todos</a></div>
+  <div class="trilho" id="destaques"></div>
+
+  <div class="secao-topo"><h2 class="secao">Mais populares</h2><a href="#catalogo" onclick="irParaCatalogo('', '', 'popular')">ver todos</a></div>
+  <div class="trilho" id="populares"></div>
+
+  <div class="secao-topo"><h2 class="secao">Lançamentos e novidades</h2><a href="#catalogo" onclick="irParaCatalogo('', '', 'recentes')">ver todos</a></div>
+  <div class="trilho" id="lancamentos"></div>
+
+  <div id="bloco-recomendacoes" hidden>
+    <div class="secao-topo"><h2 class="secao">Recomendados para você</h2></div>
+    <div class="trilho" id="recomendacoes"></div>
+  </div>
+
+  <div class="curiosidade" id="curiosidade"></div>
+</section>
+
+<!-- ================= CATÁLOGO ================= -->
+<section class="view" id="view-catalogo" hidden>
+  <h1 class="titulo-pag">Catálogo de livros</h1>
+  <div class="filtros">
+    <input id="busca" type="search" placeholder="Título, autor ou gênero...">
+    <select id="filtro-genero"><option value="">Todos os gêneros</option></select>
+    <select id="filtro-ordem">
+      <option value="titulo">Ordem alfabética (A–Z)</option>
+      <option value="popular">Mais populares</option>
+      <option value="avaliacao">Mais bem avaliados</option>
+      <option value="recentes">Mais recentes</option>
+    </select>
+    <label class="check"><input type="checkbox" id="filtro-disp"> Só disponíveis</label>
+    <label class="check"><input type="checkbox" id="filtro-nota"> Nota 4+</label>
+  </div>
+  <p class="contagem" id="contagem"></p>
+  <div class="grade" id="lista-livros"></div>
+</section>
+
+<!-- ================= LOGIN / CADASTRO ================= -->
+<section class="view" id="view-auth" hidden>
+  <div class="auth-wrap">
+    <div class="caixa">
+      <h2>Entrar</h2>
+      <label>E-mail<input id="login-email" type="email" placeholder="voce@email.com"></label>
+      <label>Senha<input id="login-senha" type="password" placeholder="Sua senha"></label>
+      <button id="btn-login" class="largo">Entrar</button>
+      <p class="dica">Demonstração: <code>leitor@biblioteca.com</code> / <code>leitor123</code></p>
+    </div>
+    <div class="caixa">
+      <h2>Criar conta</h2>
+      <label>Nome<input id="cad-nome" placeholder="Seu nome"></label>
+      <label>E-mail<input id="cad-email" type="email" placeholder="voce@email.com"></label>
+      <label>Senha<input id="cad-senha" type="password" placeholder="Mínimo 6 caracteres"></label>
+      <button id="btn-cadastro" class="largo sec">Cadastrar</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MINHA ESTANTE ================= -->
+<section class="view" id="view-estante" hidden>
+  <h1 class="titulo-pag">Minha estante</h1>
+  <div class="meta-card" id="meta-card"></div>
+  <div class="abas" id="abas-estante">
+    <button class="aba ativa" data-aba="favoritos">Favoritos</button>
+    <button class="aba" data-aba="quero_ler">Quero ler</button>
+    <button class="aba" data-aba="lidos">Já li</button>
+  </div>
+  <div class="grade" id="estante-lista"></div>
+</section>
+
+<!-- ================= EMPRÉSTIMOS ================= -->
+<section class="view" id="view-emprestimos" hidden>
+  <h1 class="titulo-pag">Meus empréstimos</h1>
+  <div class="stats mini" id="resumo-emp"></div>
+  <div class="tabela-wrap"><table>
+    <thead><tr><th>Livro</th><th>Emprestado em</th><th>Devolução prevista</th><th>Devolvido em</th><th>Status</th><th></th></tr></thead>
+    <tbody id="tab-meus"></tbody></table></div>
+</section>
+
+<!-- ================= PERFIL ================= -->
+<section class="view" id="view-perfil" hidden>
+  <h1 class="titulo-pag">Meu perfil</h1>
+  <div class="caixa" style="max-width:460px">
+    <p class="dica" id="perfil-info"></p>
+    <label>Nome<input id="perfil-nome"></label>
+    <label>E-mail<input id="perfil-email" disabled></label>
+    <label>Nova senha (opcional)<input id="perfil-senha" type="password" placeholder="Deixe em branco para manter"></label>
+    <button id="btn-perfil" class="largo">Salvar alterações</button>
+  </div>
+</section>
+
+<!-- ================= ADMIN ================= -->
+<section class="view" id="view-admin" hidden>
+  <h1 class="titulo-pag">Painel administrativo</h1>
+  <div class="abas" id="abas-admin">
+    <button class="aba ativa" data-aba="painel">Painel</button>
+    <button class="aba" data-aba="livros">Livros</button>
+    <button class="aba" data-aba="emprestimos">Empréstimos</button>
+    <button class="aba" data-aba="usuarios">Usuários</button>
+    <button class="aba" data-aba="cadastros">Autores e gêneros</button>
+  </div>
+
+  <div class="admin-aba" id="admin-painel">
+    <div class="stats" id="admin-stats"></div>
+    <div class="duas-colunas">
+      <div class="caixa larga"><h3>Livros mais emprestados</h3><div id="graf-livros"></div></div>
+      <div class="caixa larga"><h3>Gêneros mais populares</h3><div id="graf-generos"></div></div>
+    </div>
+  </div>
+
+  <div class="admin-aba" id="admin-livros" hidden>
+    <div class="caixa larga">
+      <h3 id="titulo-form">Cadastrar livro</h3>
+      <input type="hidden" id="liv-id">
+      <div class="form-grid">
+        <label>Título<input id="liv-titulo"></label>
+        <label>Autor<select id="liv-autor"></select></label>
+        <label>Gênero<select id="liv-genero"></select></label>
+        <label>Ano<input id="liv-ano" type="number"></label>
+        <label>Editora<input id="liv-editora"></label>
+        <label>ISBN<input id="liv-isbn"></label>
+        <label>Quantidade de exemplares<input id="liv-qtd" type="number" min="0" value="1"></label>
+        <label>Classificação indicativa<input id="liv-class" placeholder="Livre, 12 anos..."></label>
+        <label>URL da capa (opcional)<input id="liv-capa" placeholder="https://..."></label>
+      </div>
+      <label>Sinopse<textarea id="liv-sinopse"></textarea></label>
+      <button id="btn-salvar-livro">Salvar livro</button>
+      <button id="btn-cancelar" class="sec" hidden>Cancelar edição</button>
+    </div>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th>Título</th><th>Autor</th><th>Gênero</th><th>Disp.</th><th></th></tr></thead>
+      <tbody id="admin-lista-livros"></tbody></table></div>
+  </div>
+
+  <div class="admin-aba" id="admin-emprestimos" hidden>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th>Leitor</th><th>Livro</th><th>Emprestado</th><th>Prevista</th><th>Status</th><th></th></tr></thead>
+      <tbody id="tab-todos"></tbody></table></div>
+  </div>
+
+  <div class="admin-aba" id="admin-usuarios" hidden>
+    <div class="tabela-wrap"><table>
+      <thead><tr><th>Nome</th><th>E-mail</th><th>Tipo</th><th>Cadastro</th></tr></thead>
+      <tbody id="tab-usuarios"></tbody></table></div>
+  </div>
+
+  <div class="admin-aba" id="admin-cadastros" hidden>
+    <div class="duas-colunas">
+      <div class="caixa larga"><h3>Novo autor</h3>
+        <label>Nome<input id="novo-autor-nome"></label>
+        <label>Nacionalidade<input id="novo-autor-nac"></label>
+        <button id="btn-autor">Adicionar autor</button></div>
+      <div class="caixa larga"><h3>Novo gênero</h3>
+        <label>Nome<input id="novo-genero-nome"></label>
+        <label>Descrição<input id="novo-genero-desc"></label>
+        <button id="btn-genero">Adicionar gênero</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOBRE / INFORMAÇÕES ================= -->
+<section class="view" id="view-sobre" hidden>
+  <h1 class="titulo-pag">Sobre a Biblioteca Lírio</h1>
+  <div class="info-grid">
+    <div class="caixa larga"><h3>📖 Nossa história</h3>
+      <p>A Biblioteca Lírio é uma biblioteca virtual criada para aproximar leitores e livros. Aqui você consulta o acervo, reserva seus títulos favoritos por meio de empréstimos e organiza sua vida de leitor em uma estante pessoal.</p></div>
+    <div class="caixa larga"><h3>🕐 Horário de atendimento</h3>
+      <p>Segunda a sexta: 8h às 20h<br>Sábado: 9h às 14h<br>Domingo e feriados: fechado</p>
+      <p class="dica">O catálogo online funciona 24 horas por dia.</p></div>
+    <div class="caixa larga"><h3>📋 Regras de empréstimo</h3>
+      <ul><li>Prazo de 14 dias para cada empréstimo.</li>
+      <li>Um exemplar por título para cada leitor ao mesmo tempo.</li>
+      <li>Livros sem exemplares disponíveis não podem ser emprestados.</li>
+      <li>Empréstimos vencidos aparecem como “atrasado”.</li>
+      <li>Ao devolver, o exemplar volta ao acervo imediatamente.</li></ul></div>
+    <div class="caixa larga"><h3>✨ O que você pode fazer</h3>
+      <ul><li>Pesquisar e filtrar o catálogo em tempo real.</li>
+      <li>Favoritar livros e montar sua lista de leitura.</li>
+      <li>Definir uma meta anual e acompanhar o progresso.</li>
+      <li>Avaliar livros e ler a opinião de outros leitores.</li>
+      <li>Receber recomendações pelos seus gêneros preferidos.</li></ul></div>
+    <div class="caixa larga"><h3>📍 Contato</h3>
+      <p>Rua das Letras, 123 — Hortolândia, SP<br>contato@bibliotecalirio.exemplo<br>(19) 0000-0000</p>
+      <p class="dica">Dados fictícios para fins escolares.</p></div>
+  </div>
+</section>
+</main>
+
+<footer class="rodape">
+  <p>🌸 Biblioteca Lírio · Projeto Integrado DWS + POO + BD · Flask, SQLite, HTML, CSS e JavaScript</p>
+</footer>
+
+<div id="modal" class="modal" hidden><div class="modal-corpo" id="modal-corpo"></div></div>
+
+<script src="static/js/main.js"></script>
+<script src="static/js/livros.js"></script>
+<script src="static/js/emprestimos.js"></script>
+<script src="static/js/usuarios.js"></script>
+<script>iniciar();</script>
+</body>
+</html>
