@@ -1,6 +1,5 @@
 import os
 import sqlite3
-from werkzeug.security import generate_password_hash
 import config
 
 
@@ -28,23 +27,8 @@ def init_db():
             conn.executescript(f.read())
         if not _banco_vazio(conn):
             return
-        with open(config.SEED_PATH, encoding="utf-8") as f:
+        with open(config.DADOS_PATH, encoding="utf-8") as f:
             conn.executescript(f.read())
-        usuarios = [
-            ("Administrador", "admin@biblioteca.com", generate_password_hash("admin123"), "admin"),
-            ("Leitor Demo", "leitor@biblioteca.com", generate_password_hash("leitor123"), "leitor"),
-            ("Ana Souza", "ana@biblioteca.com", generate_password_hash("demo123"), "leitor"),
-            ("Bruno Lima", "bruno@biblioteca.com", generate_password_hash("demo123"), "leitor"),
-            ("Carla Dias", "carla@biblioteca.com", generate_password_hash("demo123"), "leitor"),
-        ]
-        conn.executemany(
-            "INSERT INTO usuarios (nome, email, senha_hash, tipo) VALUES (?,?,?,?)", usuarios)
-        with open(config.DEMO_PATH, encoding="utf-8") as f:
-            conn.executescript(f.read())
-        # ajusta a disponibilidade de acordo com os empréstimos em aberto
-        conn.execute("""UPDATE livros SET quantidade_disponivel = quantidade_total -
-            (SELECT COUNT(*) FROM emprestimos e WHERE e.id_livro = livros.id_livro
-             AND e.status IN ('ativo','atrasado'))""")
         conn.commit()
     except Exception:
         conn.close()
