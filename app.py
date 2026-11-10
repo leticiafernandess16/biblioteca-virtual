@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, send_from_directory
 import config
 from database.conexao import init_db
 from routes.livros import bp as livros_bp
@@ -20,7 +20,7 @@ app.register_blueprint(admin_bp)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return send_from_directory(app.root_path, "index.html")
 
 
 if __name__ == "__main__":
