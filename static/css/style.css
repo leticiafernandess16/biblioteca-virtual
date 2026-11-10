@@ -1,182 +1,621 @@
+/* =====================================================
+   VARIÁVEIS GERAIS
+   Guarda cores, fontes, sombras e bordas que serão
+   reutilizadas em diferentes partes do site.
+   ===================================================== */
 :root{
   --rosa:#f9d9e8; --rosa2:#f4b6d2; --lilas:#e6d9f7; --lilas2:#c9b3ec;
   --roxo:#5b3a8c; --roxo-esc:#3b2a52; --creme:#fffaf4; --branco:#fff;
   --sombra:0 6px 20px rgba(91,58,140,.12); --raio:18px;
   --serif:Georgia,"Times New Roman",serif; --sans:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
 }
+
+/* Faz largura e altura incluírem o preenchimento e a borda,
+   facilitando o controle do tamanho dos elementos. */
 *{box-sizing:border-box}
+
+/* Faz a rolagem da página acontecer suavemente. */
 html{scroll-behavior:smooth}
+
+/* Configura a aparência geral da página:
+   remove margens, define a fonte, o fundo, a cor do texto
+   e o espaçamento entre as linhas. */
 body{margin:0;font-family:var(--sans);background:var(--creme);color:var(--roxo-esc);line-height:1.55}
+
+/* Define a fonte, a cor e as margens de todos os títulos. */
 h1,h2,h3,h4{font-family:var(--serif);color:var(--roxo);margin:.2em 0 .5em}
+
+/* Define a cor padrão dos links do site. */
 a{color:var(--roxo)}
+
+/* Limita a largura da área principal e centraliza o conteúdo.
+   O padding cria espaços internos nas laterais e extremidades. */
 main{max-width:1180px;margin:0 auto;padding:22px 20px 40px}
+
+/* Esconde elementos que possuem o atributo hidden,
+   mesmo que outra regra tente mostrá-los. */
 [hidden]{display:none!important}
 
-/* ---------- topo ---------- */
+
+/* ---------- TOPO ---------- */
+
+/* Configura o cabeçalho do site.
+   position:sticky mantém o cabeçalho preso ao topo durante a rolagem.
+   display:flex organiza logo e menu em uma linha.
+   justify-content:space-between separa os elementos.
+   align-items:center alinha tudo verticalmente.
+   z-index mantém o cabeçalho acima de outros elementos.
+   backdrop-filter aplica um efeito de desfoque no fundo. */
 .topo{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:10px 24px;background:rgba(255,250,244,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--lilas)}
+
+/* Organiza o símbolo e o nome do site.
+   Remove o sublinhado e define fonte, tamanho e cor do logo. */
 .logo{display:flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--serif);font-size:1.35rem;color:var(--roxo)}
+
+/* Aumenta o tamanho do ícone que acompanha o logo. */
 .logo-ico{font-size:1.5rem}
+
+/* Configura o botão do menu para telas menores.
+   Ele começa escondido e será exibido na versão responsiva. */
 .menu-btn{display:none;background:var(--lilas);color:var(--roxo);font-size:1.3rem;padding:4px 12px}
+
+/* Organiza os itens de navegação em linha.
+   flex-wrap permite que os botões passem para outra linha
+   quando não houver espaço suficiente. */
 nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+
+/* Define a aparência dos botões que ficam dentro do menu. */
 nav button{background:transparent;color:var(--roxo);padding:8px 12px;border-radius:999px;font-size:.92rem}
+
+/* Muda o fundo do botão quando o cursor passa sobre ele.
+   transform:none impede que o botão tenha o movimento padrão. */
 nav button:hover{background:var(--lilas);transform:none}
+
+/* Destaca a opção do menu que está selecionada no momento. */
 nav button.ativo{background:var(--roxo);color:#fff}
+
+/* Aplica uma cor especial a um botão importante do menu. */
 nav button.destaque{background:var(--rosa2);color:var(--roxo-esc)}
 
-/* ---------- botões e campos ---------- */
+
+/* ---------- BOTÕES E CAMPOS ---------- */
+
+/* Define a aparência padrão de todos os botões.
+   cursor:pointer mostra a mãozinha ao passar o mouse.
+   border:0 remove a borda padrão.
+   transition cria animações suaves nas mudanças visuais. */
 button{font-family:inherit;border:0;cursor:pointer;background:var(--roxo);color:#fff;border-radius:12px;padding:9px 16px;font-size:.95rem;transition:transform .15s,box-shadow .15s,background .15s}
+
+/* Efeito ao passar o mouse sobre um botão:
+   ele sobe um pouco e recebe uma sombra. */
 button:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(91,58,140,.25)}
+
+/* Define a aparência dos botões desativados.
+   Eles ficam mais transparentes e sem efeitos de movimento. */
 button:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Estilo alternativo para botões secundários, com fundo lilás. */
 button.sec{background:var(--lilas);color:var(--roxo)}
+
+/* Estilo alternativo para botões com fundo rosa. */
 button.rosa{background:var(--rosa2);color:var(--roxo-esc)}
+
+/* Estilo para botões de ações perigosas,
+   como excluir ou remover alguma informação. */
 button.perigo{background:#b3446c}
+
+/* Faz o botão ocupar toda a largura disponível. */
 button.largo{width:100%;margin-top:6px}
+
+/* Configura os campos dos formulários:
+   input é usado para digitação,
+   select é usado para selecionar opções,
+   textarea permite escrever textos maiores. */
 input,select,textarea{width:100%;padding:9px 12px;border:1px solid var(--lilas2);border-radius:12px;font-family:inherit;font-size:.95rem;background:#fff;color:var(--roxo-esc);margin-top:4px}
+
+/* Quando a pessoa seleciona um campo,
+   aparece um contorno para indicar que ele está em uso. */
 input:focus,select:focus,textarea:focus{outline:2px solid var(--rosa2);border-color:var(--roxo)}
+
+/* Define uma altura mínima para a área de texto.
+   resize:vertical permite aumentar somente na vertical. */
 textarea{min-height:80px;resize:vertical}
+
+/* Formata os textos que identificam os campos dos formulários. */
 label{display:block;font-size:.85rem;color:#6e5a8a;margin-bottom:8px}
+
+/* Organiza checkbox e seu texto lado a lado.
+   white-space:nowrap impede que o texto seja quebrado em linhas. */
 .check{display:flex;align-items:center;gap:6px;white-space:nowrap;margin:0;font-size:.9rem}
+
+/* Impede que o checkbox ocupe toda a largura do formulário. */
 .check input{width:auto;margin:0}
+
+/* Destaca pequenos trechos de código exibidos na página. */
 code{background:var(--lilas);padding:1px 6px;border-radius:6px;font-size:.85em}
 
-/* ---------- hero ---------- */
+
+/* ---------- HERO ---------- */
+
+/* Configura a área principal de destaque da página inicial.
+   display:grid cria uma organização em colunas.
+   grid-template-columns define a proporção entre as colunas.
+   gap cria espaço entre elas.
+   linear-gradient cria o fundo em degradê.
+   box-shadow adiciona uma sombra ao redor da área. */
 .hero{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:center;padding:34px;border-radius:26px;
   background:linear-gradient(135deg,var(--rosa) 0%,var(--lilas) 100%);box-shadow:var(--sombra);margin-bottom:22px}
+
+/* Formata o pequeno texto que aparece acima do título principal.
+   text-transform:uppercase transforma as letras em maiúsculas.
+   letter-spacing aumenta o espaço entre as letras. */
 .eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;color:var(--roxo);margin:0}
+
+/* Define o tamanho, o espaçamento e a altura das linhas
+   do título principal da área de destaque. */
 .hero h1{font-size:2.3rem;line-height:1.15;margin:.3em 0}
+
+/* Organiza o campo de pesquisa e o botão lado a lado. */
 .busca-hero{display:flex;gap:8px;margin-top:16px}
+
+/* Deixa o campo de pesquisa arredondado
+   e remove sua margem superior. */
 .busca-hero input{margin:0;border-radius:999px;padding:12px 18px}
+
+/* Arredonda o botão de pesquisa e ajusta seu espaço interno. */
 .busca-hero button{border-radius:999px;padding:0 24px}
+
+/* Configura o cartão do conteúdo do dia.
+   Organiza imagem e texto, aplica fundo transparente,
+   permite clique e adiciona uma transição suave. */
 .hero-dia{background:rgba(255,255,255,.7);border-radius:20px;padding:16px;display:flex;gap:14px;align-items:center;cursor:pointer;transition:transform .2s}
+
+/* Levanta um pouco o cartão quando o cursor passa sobre ele. */
 .hero-dia:hover{transform:translateY(-3px)}
+
+/* Define a largura da capa dentro do cartão
+   e impede que ela diminua de tamanho. */
 .hero-dia .capa{width:96px;flex-shrink:0}
+
+/* Formata o pequeno texto dentro do cartão do conteúdo do dia. */
 .hero-dia small{color:var(--roxo);text-transform:uppercase;letter-spacing:.1em;font-size:.7rem}
+
+/* Ajusta a margem e o tamanho do título dentro do cartão. */
 .hero-dia h3{margin:.2em 0;font-size:1.15rem}
 
-/* ---------- estatísticas ---------- */
+
+/* ---------- ESTATÍSTICAS ---------- */
+
+/* Organiza os cartões de estatísticas em uma grade.
+   auto-fit ajusta automaticamente a quantidade de colunas.
+   minmax define a largura mínima e máxima de cada coluna. */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:10px}
+
+/* Define a aparência dos cartões de estatísticas:
+   fundo branco, cantos arredondados, sombra e borda superior rosa. */
 .stat{background:#fff;border-radius:var(--raio);padding:16px;text-align:center;box-shadow:var(--sombra);border-top:4px solid var(--rosa2)}
+
+/* Altera a cor da borda superior dos cartões pares. */
 .stat:nth-child(even){border-top-color:var(--lilas2)}
+
+/* Destaca os números das estatísticas,
+   deixando-os maiores e com uma fonte diferente. */
 .stat b{display:block;font-family:var(--serif);font-size:2rem;color:var(--roxo)}
+
+/* Formata o texto que explica cada número da estatística. */
 .stat span{font-size:.85rem;color:#7a6693}
+
+/* Diminui o tamanho dos números quando a área de estatísticas
+   também possui a classe mini. */
 .stats.mini .stat b{font-size:1.5rem}
 
-/* ---------- seções ---------- */
+
+/* ---------- SEÇÕES ---------- */
+
+/* Define o tamanho e o espaço acima dos títulos das seções. */
 .secao{font-size:1.5rem;margin-top:1.4em}
+
+/* Organiza o título e os outros elementos do topo da seção
+   em lados opostos, alinhando-os pela base. */
 .secao-topo{display:flex;justify-content:space-between;align-items:baseline}
+
+/* Formata o título principal de uma página interna. */
 .titulo-pag{font-size:2rem;margin-top:.2em}
+
+/* Organiza etiquetas e filtros em linha.
+   flex-wrap permite que eles passem para outra linha. */
 .chips{display:flex;flex-wrap:wrap;gap:10px}
+
+/* Define a aparência das etiquetas arredondadas. */
 .chip{background:#fff;color:var(--roxo);border:1px solid var(--lilas2);border-radius:999px;padding:8px 16px}
+
+/* Formata o pequeno contador que aparece dentro de uma etiqueta. */
 .chip span{background:var(--rosa);border-radius:999px;padding:0 8px;margin-left:6px;font-size:.8rem}
+
+/* Muda o fundo da etiqueta quando o cursor passa sobre ela. */
 .chip:hover{background:var(--lilas)}
 
-/* ---------- livros ---------- */
+
+/* ---------- LIVROS ---------- */
+
+/* Cria uma fileira horizontal de cartões de livros.
+   overflow-x:auto permite rolar para os lados.
+   scroll-snap-type ajuda a alinhar os cartões durante a rolagem. */
 .trilho{display:flex;gap:16px;overflow-x:auto;padding:6px 4px 16px;scroll-snap-type:x proximity}
+
+/* Mantém cada cartão com largura fixa dentro da fileira horizontal.
+   scroll-snap-align ajuda a alinhar o cartão no início da rolagem. */
 .trilho .card{flex:0 0 172px;scroll-snap-align:start}
+
+/* Cria uma grade de cartões de livros.
+   As colunas são ajustadas automaticamente conforme o espaço disponível. */
 .grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:18px}
+
+/* Define a aparência geral dos cartões de livros.
+   position:relative permite posicionar elementos dentro do cartão.
+   cursor:pointer indica que o cartão pode ser clicado. */
 .card{position:relative;background:#fff;border-radius:var(--raio);padding:12px;box-shadow:var(--sombra);cursor:pointer;transition:transform .2s,box-shadow .2s}
+
+/* Efeito ao passar o mouse sobre um cartão:
+   ele sobe um pouco e recebe uma sombra mais forte. */
 .card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(91,58,140,.2)}
+
+/* Formata o título do livro dentro do cartão. */
 .card h3{font-size:.98rem;margin:10px 0 2px;line-height:1.25}
+
+/* Formata o nome do autor em tamanho menor e cor mais suave. */
 .card .autor{font-size:.82rem;color:#7a6693}
+
+/* Organiza informações do cartão em lados opostos,
+   como avaliação e disponibilidade. */
 .card .linha{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:.78rem}
+
+/* Formata pequenas etiquetas usadas para mostrar
+   categorias ou outras informações do livro. */
 .tag{display:inline-block;background:var(--lilas);color:var(--roxo);border-radius:999px;padding:2px 10px;font-size:.72rem;margin-top:6px}
+
+/* Destaca a nota ou avaliação do livro com uma cor diferente. */
 .nota{color:#c0388a;font-weight:600}
+
+/* Define a cor verde para situações positivas
+   e a cor vermelha/rosa para situações negativas. */
 .ok{color:#2e7d4f}.nao{color:#b3446c}
+
+/* Configura o botão de coração dos favoritos.
+   position:absolute permite posicioná-lo no canto do cartão.
+   border-radius:50% deixa o botão circular. */
 .coracao{position:absolute;top:18px;right:18px;background:rgba(255,255,255,.9);color:#b3446c;border-radius:50%;width:34px;height:34px;padding:0;font-size:1.05rem;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+
+/* Muda a aparência do coração quando o livro está marcado
+   como favorito, usando fundo rosa escuro e coração branco. */
 .coracao.on{background:#b3446c;color:#fff}
 
-/* capa gerada */
+
+/* CAPA GERADA */
+
+/* Configura o formato visual das capas dos livros.
+   aspect-ratio:2/3 define o formato vertical da capa.
+   display:flex organiza os elementos internos.
+   justify-content:space-between separa os conteúdos.
+   overflow:hidden impede que elementos ultrapassem a capa.
+   box-shadow cria o efeito de lombada e sombra. */
 .capa{aspect-ratio:2/3;border-radius:6px 14px 14px 6px;padding:12px 10px 10px 16px;display:flex;flex-direction:column;justify-content:space-between;
   box-shadow:inset 6px 0 0 rgba(255,255,255,.45),0 4px 12px rgba(0,0,0,.18);overflow:hidden;position:relative}
+
+/* Formata o título que aparece dentro da capa do livro. */
 .capa .c-titulo{font-family:var(--serif);font-weight:bold;font-size:.95rem;line-height:1.2}
+
+/* Formata o nome do autor na capa,
+   usando letras maiúsculas e tamanho menor. */
 .capa .c-autor{font-size:.7rem;opacity:.85;text-transform:uppercase;letter-spacing:.06em}
+
+/* Ajusta o tamanho e a transparência do ícone decorativo da capa. */
 .capa .c-ico{font-size:1.4rem;opacity:.8}
+
+/* Faz a imagem da capa preencher todo o espaço disponível.
+   object-fit:cover evita que a imagem fique distorcida. */
 .capa img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* Limita a largura da capa quando ela aparece em tamanho grande
+   e centraliza o elemento. */
 .capa.grande{max-width:230px;margin:auto}
+
+/* Aumenta o tamanho do título quando a capa é grande. */
 .capa.grande .c-titulo{font-size:1.25rem}
 
-/* ---------- filtros ---------- */
+
+/* ---------- FILTROS ---------- */
+
+/* Organiza os campos de pesquisa e seleção em uma caixa.
+   flex-wrap permite que os elementos mudem de linha.
+   background define o fundo branco e box-shadow adiciona sombra. */
 .filtros{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:#fff;padding:14px;border-radius:var(--raio);box-shadow:var(--sombra)}
+
+/* Dá mais espaço ao campo de pesquisa dentro dos filtros.
+   min-width define a largura mínima para ele. */
 .filtros input[type=search]{flex:2;min-width:200px;margin:0}
+
+/* Configura os campos de seleção dos filtros.
+   flex:1 permite que ocupem o espaço restante. */
 .filtros select{flex:1;min-width:170px;margin:0;width:auto}
+
+/* Formata o texto que informa a quantidade de resultados encontrados. */
 .contagem{color:#7a6693;font-size:.9rem;margin:14px 0 8px}
+
+/* Centraliza a mensagem exibida quando não existem resultados.
+   grid-column:1/-1 faz a mensagem ocupar todas as colunas da grade. */
 .vazio{text-align:center;padding:40px;color:#7a6693;grid-column:1/-1}
 
-/* ---------- curiosidade ---------- */
+
+/* ---------- CURIOSIDADE ---------- */
+
+/* Cria uma área colorida para apresentar uma curiosidade.
+   flex organiza os conteúdos e permite que mudem de linha.
+   justify-content:space-between separa os elementos. */
 .curiosidade{margin-top:30px;background:linear-gradient(135deg,var(--lilas),var(--rosa));border-radius:24px;padding:26px 30px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+
+/* Remove a margem do título da área de curiosidade. */
 .curiosidade h3{margin:0 0 4px}
+
+/* Remove a margem do parágrafo e limita sua largura
+   para facilitar a leitura. */
 .curiosidade p{margin:0;max-width:700px}
+
+/* Formata o pequeno selo ou rótulo da área de curiosidade. */
 .curiosidade .selo{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo)}
 
-/* ---------- caixas, formulários ---------- */
+
+/* ---------- CAIXAS E FORMULÁRIOS ---------- */
+
+/* Define a aparência dos painéis brancos do site.
+   Adiciona cantos arredondados, preenchimento interno e sombra. */
 .caixa{background:#fff;border-radius:var(--raio);padding:20px;box-shadow:var(--sombra)}
+
+/* Adiciona espaço abaixo das caixas que usam a classe larga. */
 .caixa.larga{margin-bottom:16px}
+
+/* Organiza os painéis de autenticação, como login e cadastro.
+   repeat(auto-fit) permite ajustar a quantidade de colunas.
+   max-width limita a largura e margin:auto centraliza o conteúdo. */
 .auth-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:800px;margin:20px auto}
+
+/* Formata os pequenos textos de ajuda dos formulários. */
 .dica{font-size:.82rem;color:#8a76a6}
+
+/* Organiza os campos dos formulários em colunas adaptáveis.
+   minmax define a largura mínima de cada coluna.
+   gap define o espaço entre as linhas e colunas. */
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 14px}
+
+/* Cria uma organização em duas colunas,
+   ajustando a quantidade conforme o espaço disponível. */
 .duas-colunas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+
+/* Cria uma grade para apresentar blocos de informações.
+   Cada coluna possui uma largura mínima de 320px. */
 .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+
+/* Ajusta o recuo e a margem das listas dentro da grade de informações. */
 .info-grid ul{padding-left:20px;margin:0}
 
-/* ---------- meta de leitura ---------- */
+
+/* ---------- META DE LEITURA ---------- */
+
+/* Configura o painel usado para mostrar a meta de leitura.
+   O degradê mistura rosa e lilás.
+   flex organiza os elementos e permite quebra de linha.
+   justify-content:space-between separa os conteúdos. */
 .meta-card{background:linear-gradient(135deg,var(--rosa),var(--lilas));border-radius:var(--raio);padding:20px;margin-bottom:18px;display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+
+/* Configura o fundo da barra de progresso.
+   height define a altura e border-radius deixa as pontas arredondadas.
+   overflow:hidden impede que o preenchimento ultrapasse os limites. */
 .progresso{height:14px;background:rgba(255,255,255,.7);border-radius:999px;overflow:hidden;margin:8px 0}
+
+/* Configura a parte preenchida da barra de progresso.
+   A largura representa a quantidade de progresso alcançada.
+   transition cria uma animação quando essa largura muda. */
 .progresso div{height:100%;background:var(--roxo);border-radius:999px;transition:width .6s}
+
+/* Organiza os campos e controles do formulário da meta em uma linha. */
 .meta-form{display:flex;gap:8px;align-items:center}
+
+/* Define uma largura menor para o campo da meta
+   e remove sua margem superior. */
 .meta-form input{width:90px;margin:0}
 
-/* ---------- abas ---------- */
+
+/* ---------- ABAS ---------- */
+
+/* Organiza os botões usados para trocar entre diferentes abas.
+   flex-wrap permite que as abas passem para outra linha. */
 .abas{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 18px}
+
+/* Define a aparência padrão dos botões de abas. */
 .aba{background:#fff;color:var(--roxo);border:1px solid var(--lilas2)}
+
+/* Destaca a aba que está selecionada no momento. */
 .aba.ativa{background:var(--roxo);color:#fff}
 
-/* ---------- tabelas ---------- */
+
+/* ---------- TABELAS ---------- */
+
+/* Cria uma área ao redor da tabela.
+   overflow-x:auto permite rolagem horizontal em telas menores.
+   border-radius arredonda os cantos e box-shadow adiciona sombra. */
 .tabela-wrap{overflow-x:auto;border-radius:var(--raio);box-shadow:var(--sombra);background:#fff;margin-bottom:20px}
+
+/* Faz a tabela ocupar toda a largura disponível.
+   border-collapse junta as bordas das células.
+   min-width define uma largura mínima para preservar a leitura. */
 table{width:100%;border-collapse:collapse;min-width:560px}
+
+/* Configura as células de cabeçalho (th) e conteúdo (td).
+   padding cria espaço interno.
+   text-align:left alinha o texto à esquerda.
+   border-bottom adiciona uma linha abaixo de cada célula. */
 th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #f0e8f8;font-size:.9rem}
+
+/* Diferencia os cabeçalhos da tabela com fundo rosa,
+   fonte serifada e texto roxo. */
 th{background:var(--rosa);font-family:var(--serif);color:var(--roxo)}
+
+/* Deixa os botões que aparecem dentro das células menores. */
 td button{padding:5px 10px;font-size:.82rem;margin-right:4px}
+
+/* Configura etiquetas de status usadas nas tabelas.
+   São exibidas em formato arredondado e com texto em destaque. */
 .badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.78rem;font-weight:600}
+
+/* Define a aparência do status ativo. */
 .badge.ativo{background:#e6d9f7;color:#5b3a8c}
+
+/* Define a aparência do status devolvido, usando tons verdes. */
 .badge.devolvido{background:#d9f2e3;color:#2e7d4f}
+
+/* Define a aparência do status atrasado, usando tons rosas. */
 .badge.atrasado{background:#fcd5df;color:#a02050}
 
-/* ---------- gráficos de barras ---------- */
+
+/* ---------- GRÁFICOS DE BARRAS ---------- */
+
+/* Organiza cada linha do gráfico em três colunas:
+   1ª: nome da categoria;
+   2ª: barra que representa o valor;
+   3ª: número correspondente.
+   align-items:center alinha os elementos verticalmente. */
 .barra{display:grid;grid-template-columns:140px 1fr 30px;gap:8px;align-items:center;margin:8px 0;font-size:.85rem}
+
+/* Configura o fundo da barra do gráfico.
+   border-radius deixa as pontas arredondadas
+   e overflow:hidden mantém o preenchimento dentro dela. */
 .barra .trilha{background:var(--lilas);border-radius:999px;height:14px;overflow:hidden}
+
+/* Configura a parte preenchida da barra do gráfico.
+   O degradê mistura rosa e roxo.
+   A largura dessa parte pode representar o valor da categoria. */
 .barra .trilha div{height:100%;background:linear-gradient(90deg,var(--rosa2),var(--roxo));border-radius:999px}
 
-/* ---------- modal ---------- */
+
+/* ---------- MODAL ---------- */
+
+/* Configura a camada que aparece sobre a página quando
+   uma janela modal é aberta.
+   position:fixed mantém a camada fixa na tela.
+   inset:0 faz ela ocupar toda a tela.
+   z-index:50 coloca o modal acima dos outros elementos.
+   justify-content e align-items centralizam a janela. */
 .modal{position:fixed;inset:0;background:rgba(59,42,82,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+
+/* Configura o conteúdo interno do modal.
+   max-width limita sua largura.
+   max-height limita sua altura.
+   overflow:auto permite rolar o conteúdo se ele for muito grande.
+   position:relative permite posicionar o botão de fechar. */
 .modal-corpo{background:var(--creme);border-radius:24px;padding:26px;max-width:760px;width:100%;max-height:92vh;overflow:auto;position:relative}
+
+/* Organiza os detalhes de um livro em duas colunas:
+   uma para a capa e outra para as informações. */
 .det{display:grid;grid-template-columns:230px 1fr;gap:24px}
+
+/* Organiza os botões de ação da área de detalhes.
+   flex-wrap permite que os botões mudem de linha se necessário. */
 .det .acoes{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+
+/* Configura o botão de fechar o modal.
+   position:absolute posiciona o botão dentro do modal.
+   top e right colocam o botão no canto superior direito.
+   border-radius:50% deixa o botão circular. */
 .fechar{position:absolute;top:12px;right:14px;background:var(--lilas);color:var(--roxo);border-radius:50%;width:36px;height:36px;padding:0}
+
+/* Define a aparência das caixas que exibem avaliações ou comentários. */
 .aval{background:#fff;border-radius:14px;padding:10px 14px;margin:8px 0}
+
+/* Destaca em roxo os textos em negrito dentro das avaliações. */
 .aval b{color:var(--roxo)}
+
+/* Cria uma grade para apresentar informações adicionais.
+   auto-fit adapta a quantidade de colunas ao espaço disponível. */
 .meta-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:12px 0}
+
+/* Define a aparência de cada bloco individual de informação. */
 .meta-info div{background:#fff;border-radius:12px;padding:8px 12px;font-size:.85rem}
+
+/* Formata os pequenos rótulos que identificam cada informação.
+   display:block faz o rótulo ocupar uma linha própria. */
 .meta-info small{display:block;color:#8a76a6;font-size:.7rem;text-transform:uppercase}
 
-/* ---------- toast e rodapé ---------- */
+
+/* ---------- TOAST E RODAPÉ ---------- */
+
+/* Configura as mensagens temporárias do site.
+   position:fixed mantém a mensagem em uma posição fixa na tela.
+   bottom coloca a mensagem na parte inferior.
+   left:50% e transform centralizam horizontalmente.
+   z-index:80 mantém o aviso acima de outros elementos. */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--roxo);color:#fff;padding:12px 22px;border-radius:999px;z-index:80;box-shadow:var(--sombra);max-width:90vw}
+
+/* Muda a cor da mensagem temporária quando ela representa um erro. */
 .toast.erro{background:#b3446c}
+
+/* Configura o rodapé do site.
+   Centraliza o texto e define espaçamento, fundo e cor. */
 .rodape{text-align:center;padding:24px;background:var(--lilas);color:var(--roxo);font-size:.85rem}
 
-/* ---------- responsivo ---------- */
+
+/* ---------- RESPONSIVO ---------- */
+
+/* Estas regras são aplicadas quando a tela possui
+   largura de até 860px, como em tablets e celulares maiores.
+   São ajustes para que o site continue organizado
+   em dispositivos com telas menores. */
 @media(max-width:860px){
+
+  /* A área de destaque passa a ter apenas uma coluna,
+     e seu preenchimento interno diminui. */
   .hero{grid-template-columns:1fr;padding:22px}
+
+  /* Diminui o título principal para caber melhor na tela. */
   .hero h1{font-size:1.8rem}
+
+  /* Coloca a capa e as informações dos detalhes
+     uma abaixo da outra. */
   .det{grid-template-columns:1fr}
+
+  /* Mostra o botão do menu compacto em telas menores. */
   .menu-btn{display:block}
+
+  /* Transforma a navegação em um menu suspenso.
+     position:absolute posiciona o menu abaixo do cabeçalho.
+     display:none mantém o menu escondido inicialmente.
+     flex-direction:column organiza os botões verticalmente. */
   nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--creme);padding:10px 16px;border-bottom:1px solid var(--lilas);flex-direction:column;align-items:stretch}
+
+  /* Quando o menu recebe a classe aberto,
+     ele passa a ser exibido na tela. */
   nav.aberto{display:flex}
+
+  /* Alinha os textos dos botões do menu à esquerda. */
   nav button{text-align:left}
+
+  /* Mantém o cabeçalho preso ao topo também em telas menores. */
   .topo{position:sticky}
 }
+
+/* Aplica ajustes adicionais em celulares com largura
+   de até 520px, para aproveitar melhor o espaço disponível. */
 @media(max-width:520px){
+
+  /* Organiza os cartões de livros em duas colunas
+     e diminui o espaço entre eles. */
   .grade{grid-template-columns:repeat(2,1fr);gap:12px}
+
+  /* Reduz a largura das colunas dos gráficos
+     para que eles caibam em telas estreitas. */
   .barra{grid-template-columns:100px 1fr 26px}
+
+  /* Diminui o espaçamento interno da área principal
+     para aproveitar melhor a largura do celular. */
   main{padding:14px 12px 30px}
 }
