@@ -178,3 +178,20 @@ async function iniciar() {
     mostrarView(VIEWS.includes(alvo) ? alvo : "home");
   } catch (e) { tratarErro(e); }
 }
+
+// ===== Capa do livro (imagem com emoji de reserva) =====
+function escaparHtml(texto) {
+  return String(texto ?? "").replace(/[&<>"']/g, c => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
+function htmlCapa(livro, classe = "") {
+  const url = livro && livro.capa_url ? escaparHtml(livro.capa_url) : "";
+  const titulo = escaparHtml(livro && livro.titulo ? livro.titulo : "Livro");
+  const img = url
+    ? `<img class="capa-img" src="${url}" alt="Capa de ${titulo}" loading="lazy"
+            onerror="this.remove()">`
+    : "";
+  return `<div class="capa-box ${classe}">${img}<span class="capa-emoji">📖</span></div>`;
+}
