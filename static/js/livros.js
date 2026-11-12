@@ -173,11 +173,11 @@ async function abrirDetalhes(id) {
     // Define os botões e campos disponíveis conforme o usuário esteja autenticado ou não.
     const acoes = usuario ? `
       <div class="acoes">
-        <button onclick="pedirEmprestimo(${id})" ${l.disponivel ? "" : "disabled"}>📖 Solicitar empréstimo</button>
+        <button onclick="pedirEmprestimo(${id})" ${l.disponivel ? "" : "disabled"}>Solicitar empréstimo</button>
         <button class="${fav ? "rosa" : "sec"}" onclick="alternarFavorito(${id})">${fav ? "♥ Favoritado" : "♡ Favoritar"}</button>
         ${status === "lido"
-          ? `<button class="sec" onclick="definirLista(${id}, 'quero_ler')">✅ Lido (desfazer)</button>`
-          : `<button class="sec" onclick="definirLista(${id}, 'quero_ler')" ${status ? "disabled" : ""}>${status ? "📌 Na lista" : "📌 Quero ler"}</button>
+          ? `<button class="sec" onclick="definirLista(${id}, 'quero_ler')">Lido (desfazer)</button>`
+          : `<button class="sec" onclick="definirLista(${id}, 'quero_ler')" ${status ? "disabled" : ""}>${status ? "Na lista" : " Quero ler"}</button>
              <button class="sec" onclick="definirLista(${id}, 'lido')">✔ Marcar como lido</button>`}
         ${status ? `<button class="sec" onclick="tirarDaLista(${id})">Remover da lista</button>` : ""}
       </div>
