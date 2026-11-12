@@ -2,7 +2,7 @@
 -- Para trocar: edite só o link entre aspas simples.
 -- Pode ser um link da internet ou um PNG local, ex.: '/static/IMG/dom-casmurro.png'
 
-UPDATE livros SET capa_url = 'https://placehold.co/300x450/png?text=Dom+Casmurro' WHERE titulo = 'Dom Casmurro';
+UPDATE livros SET capa_url = 'static/img/domcasmurro' WHERE titulo = 'Dom Casmurro';
 UPDATE livros SET capa_url = 'https://placehold.co/300x450/png?text=Memorias+Postumas' WHERE titulo = 'Memórias Póstumas de Brás Cubas';
 UPDATE livros SET capa_url = 'https://placehold.co/300x450/png?text=Orgulho+e+Preconceito' WHERE titulo = 'Orgulho e Preconceito';
 UPDATE livros SET capa_url = 'https://placehold.co/300x450/png?text=Razao+e+Sensibilidade' WHERE titulo = 'Razão e Sensibilidade';
