@@ -1,7 +1,7 @@
 from urllib.parse import quote_plus
 from database.conexao import get_connection
 
-PASTA = "/static/IMG/"
+PASTA = "/static/img/"
 
 # Quando tiver os PNGs, preencha: id do livro -> nome do arquivo em static/IMG
 # Exemplo: 1: "dom-casmurro.png"
