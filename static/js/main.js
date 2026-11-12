@@ -383,5 +383,26 @@ async function iniciar() {
     // Verifica se a tela indicada existe.
     // Caso exista, abre essa tela; caso contrário, abre a página inicial.
     mostrarView(VIEWS.includes(alvo) ? alvo : "home");
+<<<<<<< HEAD
   } catch (e) { tratarErro(e); } // Trata possíveis erros durante a inicialização.
+=======
+  } catch (e) { tratarErro(e); }
+}
+
+// ===== Capa do livro (imagem com emoji de reserva) =====
+function escaparHtml(texto) {
+  return String(texto ?? "").replace(/[&<>"']/g, c => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
+function htmlCapa(livro, classe = "") {
+  const url = livro && livro.capa_url ? escaparHtml(livro.capa_url) : "";
+  const titulo = escaparHtml(livro && livro.titulo ? livro.titulo : "Livro");
+  const img = url
+    ? `<img class="capa-img" src="${url}" alt="Capa de ${titulo}" loading="lazy"
+            onerror="this.remove()">`
+    : "";
+  return `<div class="capa-box ${classe}">${img}<span class="capa-emoji">📖</span></div>`;
+>>>>>>> 1048b47c7f9eda725e67b1526e07987250b44414
 }

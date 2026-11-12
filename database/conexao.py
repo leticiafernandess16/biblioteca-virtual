@@ -3,11 +3,14 @@ import os
 
 # Importa o módulo sqlite3, responsável por trabalhar com o banco de dados SQLite.
 import sqlite3
+<<<<<<< HEAD
 
 # Importa a função utilizada para gerar senhas criptografadas (hash).
 from werkzeug.security import generate_password_hash
 
 # Importa o arquivo de configurações do projeto.
+=======
+>>>>>>> 1048b47c7f9eda725e67b1526e07987250b44414
 import config
 
 
@@ -27,6 +30,7 @@ def get_connection():
     return conn
 
 
+<<<<<<< HEAD
 # Função responsável por criar e inicializar o banco de dados.
 def init_db():
 
@@ -87,3 +91,34 @@ def init_db():
 
     # Fecha a conexão com o banco de dados após finalizar as operações.
     conn.close()
+=======
+def _banco_vazio(conn):
+    return (conn.execute("SELECT COUNT(*) FROM livros").fetchone()[0] == 0
+            and conn.execute("SELECT COUNT(*) FROM usuarios").fetchone()[0] == 0)
+
+
+def init_db():
+    """Cria as tabelas (schema.sql) e, se o banco estiver vazio, insere os dados iniciais.
+    Pode ser chamada quantas vezes quiser: não duplica dados. Se algo falhar no meio,
+    o arquivo .db é apagado para não ficar um banco pela metade."""
+    os.makedirs(os.path.dirname(config.DB_PATH), exist_ok=True)
+    conn = get_connection()
+    try:
+        with open(config.SCHEMA_PATH, encoding="utf-8") as f:
+            conn.executescript(f.read())
+        if not _banco_vazio(conn):
+            return
+        with open(config.DADOS_PATH, encoding="utf-8") as f:
+            conn.executescript(f.read())
+        conn.commit()
+    except Exception:
+        conn.close()
+        if os.path.exists(config.DB_PATH):
+            os.remove(config.DB_PATH)
+        raise
+    finally:
+        try:
+            conn.close()
+        except Exception:
+            pass
+>>>>>>> 1048b47c7f9eda725e67b1526e07987250b44414

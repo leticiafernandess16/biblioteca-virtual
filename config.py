@@ -8,6 +8,7 @@ DB_PATH = os.path.join(BASE_DIR, "database", "biblioteca.db")
 
 # Define o caminho do arquivo SQL responsável pela criação da estrutura do banco de dados.
 SCHEMA_PATH = os.path.join(BASE_DIR, "database", "schema.sql")
+<<<<<<< HEAD
 
 # Define o caminho do arquivo SQL que contém os dados iniciais do sistema.
 SEED_PATH = os.path.join(BASE_DIR, "database", "seed.sql")
@@ -21,3 +22,8 @@ DIAS_EMPRESTIMO = 14
 
 # Define o caminho do arquivo SQL que contém os dados utilizados na demonstração do sistema.
 DEMO_PATH = os.path.join(BASE_DIR, "database", "demo.sql")
+=======
+DADOS_PATH = os.path.join(BASE_DIR, "database", "dados.sql")
+SECRET_KEY = "troque-esta-chave-em-producao"
+DIAS_EMPRESTIMO = 14
+>>>>>>> 1048b47c7f9eda725e67b1526e07987250b44414

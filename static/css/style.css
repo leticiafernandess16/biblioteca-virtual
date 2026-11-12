@@ -618,4 +618,32 @@ td button{padding:5px 10px;font-size:.82rem;margin-right:4px}
   /* Diminui o espaçamento interno da área principal
      para aproveitar melhor a largura do celular. */
   main{padding:14px 12px 30px}
+<<<<<<< HEAD
 }
+=======
+}
+
+.capa-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3eef7;
+}
+.capa-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.capa-emoji {
+  font-size: 3rem;
+}
+.capa-box:has(.capa-img) .capa-emoji {
+  display: none;
+}
+>>>>>>> 1048b47c7f9eda725e67b1526e07987250b44414
