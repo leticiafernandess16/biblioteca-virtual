@@ -1,4 +1,3 @@
-
 // Função assíncrona responsável por iniciar o funcionamento do sistema.
 async function iniciar() {
   try {
@@ -29,24 +28,13 @@ async function iniciar() {
   }
 }
 
-// ===== Capa do livro (imagem com emoji de reserva) =====
-
-// Converte caracteres especiais em entidades HTML.
-function escaparHtml(texto) {
-  return String(texto ?? "").replace(/[&<>"']/g, c => (
-    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
-  ));
-}
-
-// Cria a capa do livro utilizando uma imagem e um emoji de reserva.
+// ===== Capa do livro: static/IMG/<id_livro>.png (emoji se a imagem não existir) =====
 function htmlCapa(livro, classe = "") {
-  const url = livro && livro.capa_url ? escaparHtml(livro.capa_url) : "";
-  const titulo = escaparHtml(livro && livro.titulo ? livro.titulo : "Livro");
-
-  const img = url
-    ? `<img class="capa-img" src="${url}" alt="Capa de ${titulo}" loading="lazy"
-            onerror="this.remove()">`
+  const id = livro && livro.id_livro ? livro.id_livro : "";
+  const titulo = String(livro && livro.titulo ? livro.titulo : "Livro")
+    .replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const img = id
+    ? `<img class="capa-img" src="/static/IMG/${id}.png" alt="Capa de ${titulo}" loading="lazy" onerror="this.remove()">`
     : "";
-
   return `<div class="capa-box ${classe}">${img}<span class="capa-emoji">📖</span></div>`;
 }
