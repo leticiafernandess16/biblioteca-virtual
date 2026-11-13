@@ -79,7 +79,7 @@ const ICONES = ["💌", "🐉", "🚀", "🕵️", "🔎", "🦇", "🧭", "🏛
 function capaHTML(l, grande = false) {
   const i = (l.id_genero - 1) % CAPAS.length;
   const [c1, c2, txt] = CAPAS[i];
-  const img = l.capa_url ? `<img src="${esc(l.capa_url)}" alt="Capa de ${esc(l.titulo)}" onerror="this.remove()">` : "";
+  const img = l.id_livro ? `<img src="/static/IMG/${l.id_livro}.png" alt="Capa de ${esc(l.titulo)}" onerror="this.remove()">` : "";
   return `<div class="capa ${grande ? "grande" : ""}" style="background:linear-gradient(160deg,${c1},${c2});color:${txt}">
     <span class="c-ico">${ICONES[i]}</span>
     <span class="c-titulo">${esc(l.titulo)}</span>
@@ -167,31 +167,3 @@ function ligarEventos() {
   });
 }
 
-async function iniciar() {
-  try {
-    usuario = (await api("/api/me")).usuario;
-    await recarregarEstado();
-    generos = await api("/api/generos");
-    preencherFiltroGeneros();
-    ligarEventos();
-    const alvo = location.hash.replace("#", "");
-    mostrarView(VIEWS.includes(alvo) ? alvo : "home");
-  } catch (e) { tratarErro(e); }
-}
-
-// ===== Capa do livro (imagem com emoji de reserva) =====
-function escaparHtml(texto) {
-  return String(texto ?? "").replace(/[&<>"']/g, c => (
-    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
-  ));
-}
-
-function htmlCapa(livro, classe = "") {
-  const url = livro && livro.capa_url ? escaparHtml(livro.capa_url) : "";
-  const titulo = escaparHtml(livro && livro.titulo ? livro.titulo : "Livro");
-  const img = url
-    ? `<img class="capa-img" src="${url}" alt="Capa de ${titulo}" loading="lazy"
-            onerror="this.remove()">`
-    : "";
-  return `<div class="capa-box ${classe}">${img}<span class="capa-emoji">📖</span></div>`;
-}
