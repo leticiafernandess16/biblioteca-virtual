@@ -79,7 +79,7 @@ const ICONES = ["💌", "🐉", "🚀", "🕵️", "🔎", "🦇", "🧭", "🏛
 function capaHTML(l, grande = false) {
   const i = (l.id_genero - 1) % CAPAS.length;
   const [c1, c2, txt] = CAPAS[i];
-  const img = l.id_livro ? `<img src="/static/img/${l.id_livro}.png" alt="Capa de ${esc(l.titulo)}" onerror="this.remove()">` : "";
+  const img = l.id_livro ? `<img src="/capa/${l.id_livro}" alt="Capa de ${esc(l.titulo)}" onerror="this.remove()">` : "";
   return `<div class="capa ${grande ? "grande" : ""}" style="background:linear-gradient(160deg,${c1},${c2});color:${txt}">
     <span class="c-ico">${ICONES[i]}</span>
     <span class="c-titulo">${esc(l.titulo)}</span>

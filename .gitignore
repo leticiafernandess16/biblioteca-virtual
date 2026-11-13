@@ -11,4 +11,5 @@ venv/
 .venv/
 
 # Ignora o arquivo do banco de dados SQLite, que armazena os dados da biblioteca.
-database/biblioteca.db
+database/biblioteca.dbdatabase/*.bak
+database/*.bak
