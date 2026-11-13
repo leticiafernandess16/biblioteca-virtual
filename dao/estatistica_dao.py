@@ -22,29 +22,29 @@ class EstatisticaDAO:
         # Executa uma consulta SQL para buscar diferentes informações e quantidades do sistema.
         r = conn.execute("""SELECT
 
-            # Conta a quantidade de livros cadastrados no sistema.
+            -- Conta a quantidade de livros cadastrados no sistema.
             (SELECT COUNT(*) FROM livros) AS livros,
 
-            # Soma a quantidade total de exemplares de todos os livros.
-            # COALESCE retorna 0 caso não existam valores para somar.
+            -- Soma a quantidade total de exemplares de todos os livros.
+            -- COALESCE retorna 0 caso não existam valores para somar.
             (SELECT COALESCE(SUM(quantidade_total),0) FROM livros) AS exemplares,
 
-            # Conta a quantidade de usuários cadastrados.
+            -- Conta a quantidade de usuários cadastrados.
             (SELECT COUNT(*) FROM usuarios) AS usuarios,
 
-            # Conta todos os empréstimos registrados no sistema.
+            -- Conta todos os empréstimos registrados no sistema.
             (SELECT COUNT(*) FROM emprestimos) AS emprestimos_total,
 
-            # Conta os empréstimos que estão ativos ou atrasados.
+            -- Conta os empréstimos que estão ativos ou atrasados.
             (SELECT COUNT(*) FROM emprestimos WHERE status IN ('ativo','atrasado')) AS emprestimos_ativos,
 
-            # Conta a quantidade de empréstimos que estão atrasados.
+            -- Conta a quantidade de empréstimos que estão atrasados.
             (SELECT COUNT(*) FROM emprestimos WHERE status='atrasado') AS emprestimos_atrasados,
 
-            # Conta a quantidade de avaliações cadastradas.
+            -- Conta a quantidade de avaliações cadastradas.
             (SELECT COUNT(*) FROM avaliacoes) AS avaliacoes,
 
-            # Conta a quantidade de gêneros literários cadastrados.
+            -- Conta a quantidade de gêneros literários cadastrados.
             (SELECT COUNT(*) FROM generos) AS generos""").fetchone()
 
         # Fecha a conexão com o banco de dados.
