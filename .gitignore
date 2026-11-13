@@ -1,5 +1,14 @@
+# Ignora a pasta que armazena arquivos de cache do Python.
 __pycache__/
+
+# Ignora todos os arquivos compilados do Python.
 *.pyc
+
+# Ignora a pasta do ambiente virtual do projeto.
 venv/
+
+# Ignora outra possível pasta de ambiente virtual.
 .venv/
+
+# Ignora o arquivo do banco de dados SQLite, que armazena os dados da biblioteca.
 database/biblioteca.db

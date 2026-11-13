@@ -1,186 +1,83 @@
-:root{
-  --rosa:#f9d9e8; --rosa2:#f4b6d2; --lilas:#e6d9f7; --lilas2:#c9b3ec;
-  --roxo:#5b3a8c; --roxo-esc:#3b2a52; --creme:#fffaf4; --branco:#fff;
-  --sombra:0 6px 20px rgba(91,58,140,.12); --raio:18px;
-  --serif:Georgia,"Times New Roman",serif; --sans:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--sans);background:var(--creme);color:var(--roxo-esc);line-height:1.55}
-h1,h2,h3,h4{font-family:var(--serif);color:var(--roxo);margin:.2em 0 .5em}
-a{color:var(--roxo)}
-main{max-width:1180px;margin:0 auto;padding:22px 20px 40px}
-[hidden]{display:none!important}
-
-/* ---------- topo ---------- */
-.topo{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:10px 24px;background:rgba(255,250,244,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--lilas)}
-.logo{display:flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--serif);font-size:1.35rem;color:var(--roxo)}
-.logo-ico{font-size:1.5rem}
-.menu-btn{display:none;background:var(--lilas);color:var(--roxo);font-size:1.3rem;padding:4px 12px}
-nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
-nav button{background:transparent;color:var(--roxo);padding:8px 12px;border-radius:999px;font-size:.92rem}
-nav button:hover{background:var(--lilas);transform:none}
-nav button.ativo{background:var(--roxo);color:#fff}
-nav button.destaque{background:var(--rosa2);color:var(--roxo-esc)}
-
-/* ---------- botões e campos ---------- */
-button{font-family:inherit;border:0;cursor:pointer;background:var(--roxo);color:#fff;border-radius:12px;padding:9px 16px;font-size:.95rem;transition:transform .15s,box-shadow .15s,background .15s}
-button:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(91,58,140,.25)}
-button:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-button.sec{background:var(--lilas);color:var(--roxo)}
-button.rosa{background:var(--rosa2);color:var(--roxo-esc)}
-button.perigo{background:#b3446c}
-button.largo{width:100%;margin-top:6px}
-input,select,textarea{width:100%;padding:9px 12px;border:1px solid var(--lilas2);border-radius:12px;font-family:inherit;font-size:.95rem;background:#fff;color:var(--roxo-esc);margin-top:4px}
-input:focus,select:focus,textarea:focus{outline:2px solid var(--rosa2);border-color:var(--roxo)}
-textarea{min-height:80px;resize:vertical}
-label{display:block;font-size:.85rem;color:#6e5a8a;margin-bottom:8px}
-.check{display:flex;align-items:center;gap:6px;white-space:nowrap;margin:0;font-size:.9rem}
-.check input{width:auto;margin:0}
-code{background:var(--lilas);padding:1px 6px;border-radius:6px;font-size:.85em}
-
-/* ---------- hero ---------- */
-.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:center;padding:34px;border-radius:26px;
-  background:linear-gradient(135deg,var(--rosa) 0%,var(--lilas) 100%);box-shadow:var(--sombra);margin-bottom:22px}
-.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;color:var(--roxo);margin:0}
-.hero h1{font-size:2.3rem;line-height:1.15;margin:.3em 0}
-.busca-hero{display:flex;gap:8px;margin-top:16px}
-.busca-hero input{margin:0;border-radius:999px;padding:12px 18px}
-.busca-hero button{border-radius:999px;padding:0 24px}
-.hero-dia{background:rgba(255,255,255,.7);border-radius:20px;padding:16px;display:flex;gap:14px;align-items:center;cursor:pointer;transition:transform .2s}
-.hero-dia:hover{transform:translateY(-3px)}
-.hero-dia .capa{width:96px;flex-shrink:0}
-.hero-dia small{color:var(--roxo);text-transform:uppercase;letter-spacing:.1em;font-size:.7rem}
-.hero-dia h3{margin:.2em 0;font-size:1.15rem}
-
-/* ---------- estatísticas ---------- */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:10px}
-.stat{background:#fff;border-radius:var(--raio);padding:16px;text-align:center;box-shadow:var(--sombra);border-top:4px solid var(--rosa2)}
-.stat:nth-child(even){border-top-color:var(--lilas2)}
-.stat b{display:block;font-family:var(--serif);font-size:2rem;color:var(--roxo)}
-.stat span{font-size:.85rem;color:#7a6693}
-.stats.mini .stat b{font-size:1.5rem}
-
-/* ---------- seções ---------- */
-.secao{font-size:1.5rem;margin-top:1.4em}
-.secao-topo{display:flex;justify-content:space-between;align-items:baseline}
-.titulo-pag{font-size:2rem;margin-top:.2em}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{background:#fff;color:var(--roxo);border:1px solid var(--lilas2);border-radius:999px;padding:8px 16px}
-.chip span{background:var(--rosa);border-radius:999px;padding:0 8px;margin-left:6px;font-size:.8rem}
-.chip:hover{background:var(--lilas)}
-
-/* ---------- livros ---------- */
-.trilho{display:flex;gap:16px;overflow-x:auto;padding:6px 4px 16px;scroll-snap-type:x proximity}
-.trilho .card{flex:0 0 172px;scroll-snap-align:start}
-.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:18px}
-.card{position:relative;background:#fff;border-radius:var(--raio);padding:12px;box-shadow:var(--sombra);cursor:pointer;transition:transform .2s,box-shadow .2s}
-.card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(91,58,140,.2)}
-.card h3{font-size:.98rem;margin:10px 0 2px;line-height:1.25}
-.card .autor{font-size:.82rem;color:#7a6693}
-.card .linha{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:.78rem}
-.tag{display:inline-block;background:var(--lilas);color:var(--roxo);border-radius:999px;padding:2px 10px;font-size:.72rem;margin-top:6px}
-.nota{color:#c0388a;font-weight:600}
-.ok{color:#2e7d4f}.nao{color:#b3446c}
-.coracao{position:absolute;top:18px;right:18px;background:rgba(255,255,255,.9);color:#b3446c;border-radius:50%;width:34px;height:34px;padding:0;font-size:1.05rem;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-.coracao.on{background:#b3446c;color:#fff}
-
-/* capa gerada */
-.capa{aspect-ratio:2/3;border-radius:6px 14px 14px 6px;padding:12px 10px 10px 16px;display:flex;flex-direction:column;justify-content:space-between;
-  box-shadow:inset 6px 0 0 rgba(255,255,255,.45),0 4px 12px rgba(0,0,0,.18);overflow:hidden;position:relative}
-.capa .c-titulo{font-family:var(--serif);font-weight:bold;font-size:.95rem;line-height:1.2}
-.capa .c-autor{font-size:.7rem;opacity:.85;text-transform:uppercase;letter-spacing:.06em}
-.capa .c-ico{font-size:1.4rem;opacity:.8}
-.capa img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.capa.grande{max-width:230px;margin:auto}
-.capa.grande .c-titulo{font-size:1.25rem}
-
-/* ---------- filtros ---------- */
-.filtros{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:#fff;padding:14px;border-radius:var(--raio);box-shadow:var(--sombra)}
-.filtros input[type=search]{flex:2;min-width:200px;margin:0}
-.filtros select{flex:1;min-width:170px;margin:0;width:auto}
-.contagem{color:#7a6693;font-size:.9rem;margin:14px 0 8px}
-.vazio{text-align:center;padding:40px;color:#7a6693;grid-column:1/-1}
-
-/* ---------- curiosidade ---------- */
-.curiosidade{margin-top:30px;background:linear-gradient(135deg,var(--lilas),var(--rosa));border-radius:24px;padding:26px 30px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.curiosidade h3{margin:0 0 4px}
-.curiosidade p{margin:0;max-width:700px}
-.curiosidade .selo{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--roxo)}
-
-/* ---------- caixas, formulários ---------- */
-.caixa{background:#fff;border-radius:var(--raio);padding:20px;box-shadow:var(--sombra)}
-.caixa.larga{margin-bottom:16px}
-.auth-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:800px;margin:20px auto}
-.dica{font-size:.82rem;color:#8a76a6}
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 14px}
-.duas-colunas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
-.info-grid ul{padding-left:20px;margin:0}
-
-/* ---------- meta de leitura ---------- */
-.meta-card{background:linear-gradient(135deg,var(--rosa),var(--lilas));border-radius:var(--raio);padding:20px;margin-bottom:18px;display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-.progresso{height:14px;background:rgba(255,255,255,.7);border-radius:999px;overflow:hidden;margin:8px 0}
-.progresso div{height:100%;background:var(--roxo);border-radius:999px;transition:width .6s}
-.meta-form{display:flex;gap:8px;align-items:center}
-.meta-form input{width:90px;margin:0}
-
-/* ---------- abas ---------- */
-.abas{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 18px}
-.aba{background:#fff;color:var(--roxo);border:1px solid var(--lilas2)}
-.aba.ativa{background:var(--roxo);color:#fff}
-
-/* ---------- tabelas ---------- */
-.tabela-wrap{overflow-x:auto;border-radius:var(--raio);box-shadow:var(--sombra);background:#fff;margin-bottom:20px}
-table{width:100%;border-collapse:collapse;min-width:560px}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #f0e8f8;font-size:.9rem}
-th{background:var(--rosa);font-family:var(--serif);color:var(--roxo)}
-td button{padding:5px 10px;font-size:.82rem;margin-right:4px}
-.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.78rem;font-weight:600}
-.badge.ativo{background:#e6d9f7;color:#5b3a8c}
-.badge.devolvido{background:#d9f2e3;color:#2e7d4f}
-.badge.atrasado{background:#fcd5df;color:#a02050}
-
-/* ---------- gráficos de barras ---------- */
-.barra{display:grid;grid-template-columns:140px 1fr 30px;gap:8px;align-items:center;margin:8px 0;font-size:.85rem}
-.barra .trilha{background:var(--lilas);border-radius:999px;height:14px;overflow:hidden}
-.barra .trilha div{height:100%;background:linear-gradient(90deg,var(--rosa2),var(--roxo));border-radius:999px}
-
-/* ---------- modal ---------- */
-.modal{position:fixed;inset:0;background:rgba(59,42,82,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
-.modal-corpo{background:var(--creme);border-radius:24px;padding:26px;max-width:760px;width:100%;max-height:92vh;overflow:auto;position:relative}
-.det{display:grid;grid-template-columns:230px 1fr;gap:24px}
-.det .acoes{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.fechar{position:absolute;top:12px;right:14px;background:var(--lilas);color:var(--roxo);border-radius:50%;width:36px;height:36px;padding:0}
-.aval{background:#fff;border-radius:14px;padding:10px 14px;margin:8px 0}
-.aval b{color:var(--roxo)}
-.meta-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:12px 0}
-.meta-info div{background:#fff;border-radius:12px;padding:8px 12px;font-size:.85rem}
+/* Formata os pequenos rótulos que identificam cada informação.
+   display:block faz o rótulo ocupar uma linha própria. */
 .meta-info small{display:block;color:#8a76a6;font-size:.7rem;text-transform:uppercase}
 
-/* ---------- toast e rodapé ---------- */
+
+/* ---------- TOAST E RODAPÉ ---------- */
+
+/* Configura as mensagens temporárias do site.
+   position:fixed mantém a mensagem em uma posição fixa na tela.
+   bottom coloca a mensagem na parte inferior.
+   left:50% e transform centralizam horizontalmente.
+   z-index:80 mantém o aviso acima de outros elementos. */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--roxo);color:#fff;padding:12px 22px;border-radius:999px;z-index:80;box-shadow:var(--sombra);max-width:90vw}
+
+/* Muda a cor da mensagem temporária quando ela representa um erro. */
 .toast.erro{background:#b3446c}
+
+/* Configura o rodapé do site.
+   Centraliza o texto e define espaçamento, fundo e cor. */
 .rodape{text-align:center;padding:24px;background:var(--lilas);color:var(--roxo);font-size:.85rem}
 
-/* ---------- responsivo ---------- */
+
+/* ---------- RESPONSIVO ---------- */
+
+/* Estas regras são aplicadas quando a tela possui
+   largura de até 860px, como em tablets e celulares maiores.
+   São ajustes para que o site continue organizado
+   em dispositivos com telas menores. */
 @media(max-width:860px){
+
+  /* A área de destaque passa a ter apenas uma coluna,
+     e seu preenchimento interno diminui. */
   .hero{grid-template-columns:1fr;padding:22px}
+
+  /* Diminui o título principal para caber melhor na tela. */
   .hero h1{font-size:1.8rem}
+
+  /* Coloca a capa e as informações dos detalhes
+     uma abaixo da outra. */
   .det{grid-template-columns:1fr}
+
+  /* Mostra o botão do menu compacto em telas menores. */
   .menu-btn{display:block}
+
+  /* Transforma a navegação em um menu suspenso.
+     position:absolute posiciona o menu abaixo do cabeçalho.
+     display:none mantém o menu escondido inicialmente.
+     flex-direction:column organiza os botões verticalmente. */
   nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--creme);padding:10px 16px;border-bottom:1px solid var(--lilas);flex-direction:column;align-items:stretch}
+
+  /* Quando o menu recebe a classe aberto,
+     ele passa a ser exibido na tela. */
   nav.aberto{display:flex}
+
+  /* Alinha os textos dos botões do menu à esquerda. */
   nav button{text-align:left}
+
+  /* Mantém o cabeçalho preso ao topo também em telas menores. */
   .topo{position:sticky}
 }
+
+/* Aplica ajustes adicionais em celulares com largura
+   de até 520px, para aproveitar melhor o espaço disponível. */
 @media(max-width:520px){
+
+  /* Organiza os cartões de livros em duas colunas
+     e diminui o espaço entre eles. */
   .grade{grid-template-columns:repeat(2,1fr);gap:12px}
+
+  /* Reduz a largura das colunas dos gráficos
+     para que eles caibam em telas estreitas. */
   .barra{grid-template-columns:100px 1fr 26px}
+
+  /* Diminui o espaçamento interno da área principal
+     para aproveitar melhor a largura do celular. */
   main{padding:14px 12px 30px}
 }
 
+/* Configura a área destinada à capa do livro.
+   Define proporção vertical, arredondamento e alinhamento. */
 .capa-box {
   position: relative;
   width: 100%;
@@ -192,15 +89,23 @@ td button{padding:5px 10px;font-size:.82rem;margin-right:4px}
   justify-content: center;
   background: #f3eef7;
 }
+
+/* Faz a imagem preencher toda a área da capa
+   sem distorcer suas proporções. */
 .capa-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
+
+/* Define o tamanho do emoji utilizado
+   quando o livro não possui imagem de capa. */
 .capa-emoji {
   font-size: 3rem;
 }
+
+/* Esconde o emoji quando existe uma imagem de capa. */
 .capa-box:has(.capa-img) .capa-emoji {
   display: none;
 }
