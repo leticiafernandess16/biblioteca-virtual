@@ -29,6 +29,12 @@ function esc(t) {
 // ===== Comunicação com a API =====
 
 async function api(url, metodo = "GET", corpo = null) {
+  // No GitHub Pages (ou abrindo o arquivo direto) não existe Flask.
+  // Nesse caso, a API é respondida pelo modo demonstração em demo.js.
+  if (typeof MODO_ESTATICO !== "undefined" && MODO_ESTATICO) {
+    return apiEstatica(url, metodo, corpo);
+  }
+
   // Define o método da requisição e os cabeçalhos
   const opcoes = { method: metodo, headers: {} };
 
@@ -166,9 +172,14 @@ function capaHTML(l, grande = false) {
   const i = (l.id_genero - 1) % CAPAS.length;
   const [c1, c2, txt] = CAPAS[i];
 
-  // Verifica se o livro possui uma capa cadastrada
-  // Se possuir, cria uma imagem; caso contrário, não adiciona imagem
-  const img = l.id_livro ? `<img src="/capa/${l.id_livro}" alt="Capa de ${esc(l.titulo)}" onerror="this.remove()">` : "";
+  // Verifica se o livro possui uma capa cadastrada.
+  // No modo estático usa a imagem local exportada; no Flask usa a rota /capa.
+  // Se não houver imagem, o navegador remove a tag e a capa em CSS permanece.
+  const capa = l.capa_demo !== undefined
+    ? l.capa_demo
+    : (typeof MODO_ESTATICO !== "undefined" && MODO_ESTATICO ? "" : "/capa/" + l.id_livro);
+
+  const img = l.id_livro && capa ? `<img src="${capa}" alt="Capa de ${esc(l.titulo)}" onerror="this.remove()">` : "";
 
   // Retorna o HTML da capa com suas cores, ícone, título e autor
   return `<div class="capa ${grande ? "grande" : ""}" style="background:linear-gradient(160deg,${c1},${c2});color:${txt}">
@@ -332,4 +343,24 @@ function ligarEventos() {
     // Mostra somente o conteúdo da aba administrativa selecionada
     document.querySelectorAll(".admin-aba").forEach(d => (d.hidden = d.id !== "admin-" + e.target.dataset.aba));
   });
+}
+
+
+// ===== Inicialização da aplicação =====
+
+async function iniciar() {
+  try {
+    // Restaura o usuário logado e os dados da estante
+    usuario = (await api("/api/me")).usuario;
+    await recarregarEstado();
+
+    // Carrega os gêneros e preenche o filtro do catálogo
+    generos = await api("/api/generos");
+    preencherFiltroGeneros();
+
+    // Liga os eventos e mostra a tela inicial (ou a tela indicada na URL)
+    ligarEventos();
+    const alvo = location.hash.replace("#", "");
+    mostrarView(VIEWS.includes(alvo) ? alvo : "home");
+  } catch (e) { tratarErro(e); }
 }

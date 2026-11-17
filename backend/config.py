@@ -10,12 +10,6 @@ DB_PATH = os.path.join(BASE_DIR, "database", "biblioteca.db")
 # Define o caminho do arquivo SQL responsável pela criação da estrutura do banco de dados.
 SCHEMA_PATH = os.path.join(BASE_DIR, "database", "schema.sql")
 
-# Define o caminho do arquivo SQL que contém os dados iniciais do sistema.
-SEED_PATH = os.path.join(BASE_DIR, "database", "seed.sql")
-
-# Define o caminho do arquivo SQL que contém os dados utilizados na demonstração do sistema.
-DEMO_PATH = os.path.join(BASE_DIR, "database", "demo.sql")
-
 # Define o caminho do arquivo SQL que contém os dados gerais do sistema.
 DADOS_PATH = os.path.join(BASE_DIR, "database", "dados.sql")
 

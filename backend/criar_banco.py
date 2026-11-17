@@ -7,10 +7,20 @@
 import os
 import sys
 
+# Pasta do backend (onde ficam config, dao, models e routes).
+BASE = os.path.dirname(os.path.abspath(__file__))
+
 # Pasta principal do projeto (um nível acima de backend/).
 # Permite importar a pasta database/, que fica fora do backend.
-RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(RAIZ)
+RAIZ = os.path.dirname(BASE)
+
+# Garante que os imports funcionem tanto com "python backend/criar_banco.py"
+# quanto com "python -m backend.criar_banco" (executado a partir da raiz).
+# O backend tem prioridade; a raiz fica como fallback para a pasta database/.
+if BASE not in sys.path:
+    sys.path.insert(0, BASE)
+if RAIZ not in sys.path:
+    sys.path.append(RAIZ)
 
 import config
 from database.conexao import init_db
